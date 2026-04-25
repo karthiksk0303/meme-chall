@@ -1,53 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>SHADOW FAHHH WORLD</title>
+    <title>FAHHH NETWORK CHALLENGE</title>
     <style>
-        body { background-color: #ff0055; color: white; font-family: 'Comic Sans MS', cursive; text-align: center; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; overflow: hidden; }
-        #app-container { background: white; color: #ff0055; padding: 50px; border-radius: 40px; border: 10px solid #d00000; box-shadow: 0 0 50px rgba(0,0,0,0.5); }
+        body { background-color: #ff0055; color: white; font-family: 'Comic Sans MS', cursive; text-align: center; padding: 50px; }
+        .box { background: pink; border: 10px solid red; padding: 30px; border-radius: 30px; display: inline-block; }
+        button { background: red; color: white; padding: 15px; border: none; cursor: pointer; border-radius: 10px; font-weight: bold; }
     </style>
 </head>
 <body>
-
-    <div id="app-container">
-        <h1>LOADING FAHHH...</h1>
+    <div class="box">
+        <h1>(╯°□°）╯ FAHHH!!</h1>
+        <img src="fahh_happy.png" width="200"><br><br>
+        <button onclick="checkServer()">PING SECURITY SERVER</button>
+        <p id="msg">System Ready.</p>
     </div>
 
     <script>
-        // 1. SELECT THE HOST
-        const host = document.querySelector('#app-container');
+        // Register the Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
 
-        // 2. CREATE A CLOSED SHADOW ROOT
-        // 'closed' makes it harder to access via console scripts
-        const shadow = host.attachShadow({mode: 'closed'});
-
-        // 3. INJECT THE REAL CHALLENGE INTO THE SHADOW
-        shadow.innerHTML = `
-            <style>
-                h1 { color: #d00000; font-size: 50px; }
-                .meme-img { width: 300px; border: 5px solid #ff0055; border-radius: 20px; }
-                .hidden-val { display: none; }
-            </style>
-            <div>
-                <h1>(╯°□°）╯ FAHHH!!</h1>
-                <img src="fahh_happy.png" class="meme-img">
-                <p><b>"The Flag is not in this world, but in the Shadow of it."</b></p>
-                
-                <div id="flag-part" data-fahh="PSNACET{Y3p_bu66y_Th5_Is_FAHHHHH!}"></div>
-            </div>
-        `;
-
-        // 4. ANTI-INSPECTION (ANNLOYANCE LAYER)
-        // Disables Right Click
-        document.addEventListener('contextmenu', event => event.preventDefault());
-
-        // Disables F12, Ctrl+Shift+I, Ctrl+U
-        document.onkeydown = function(e) {
-            if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73) || (e.ctrlKey && e.keyCode == 85)) {
-                alert("FAHHH! Access Denied! Use your brain, not your shortcuts!");
-                return false;
-            }
-        };
+        async function checkServer() {
+            document.getElementById('msg').innerText = "Fetching status...";
+            // This triggers the fetch event in sw.js
+            await fetch('flag_status.txt');
+            document.getElementById('msg').innerText = "Status received. Check the network traffic, Senpai!";
+        }
     </script>
 </body>
 </html>
