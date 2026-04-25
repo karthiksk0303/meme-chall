@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FAHHH ANIME WORLD</title>
+    <style>
+        body { background-color: #ff0055; color: white; font-family: 'Comic Sans MS', cursive; text-align: center; }
+        .box { background: pink; border: 10px solid red; margin: 50px auto; width: 60%; padding: 20px; border-radius: 30px; }
+        .anime-char { width: 150px; cursor: pointer; border: 3px solid white; margin: 10px; }
+        button { background: red; color: white; padding: 15px 30px; border: none; font-size: 20px; cursor: pointer; border-radius: 10px; }
+        button:hover { background: darkred; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>✨ THE FRAGMENTED FAHHH ✨</h1>
+        <p>Find the 3 hidden pieces to assemble the flag!</p>
+        
+        <img src="gojo.jpeg" class="anime-char" id="char1" data-part="PSNACET{Y3p_">
+        
+        <img src="fahh_happy.png" class="anime-char" id="char2" data-part="bu66y_Th5_">
+        
+        <img src="nah_id_win.jpeg" class="anime-char" id="char3" data-part="Is_FAHHHHH!}">
+
+        <br><br>
+        <button onclick="assemble()">ASSEMBLE FAHHH</button>
+        <p id="output"></p>
+    </div>
+
+    <script>
+        function assemble() {
+            // This script looks for the parts in the HTML attributes
+            const p1 = document.getElementById('char1').getAttribute('data-part');
+            const p2 = document.getElementById('char2').getAttribute('data-part');
+            const p3 = document.getElementById('char3').getAttribute('data-part');
+            
+            console.log("System: Assembling parts...");
+            // It only shows in the console to make it "Medium" difficulty
+            console.log("COMPLETE FLAG: " + p1 + p2 + p3);
+            document.getElementById('output').innerText = "Check the Console (F12) to see the assembled FAHHH!";
+        }
+    </script>
+</body>
+</html>
