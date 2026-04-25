@@ -1,4 +1,1 @@
-[LOG] FAHHH-OS: Kernel Loaded.
-[LOG] Security: UI is encapsulated in a Shadow Boundary.
-[LOG] Warning: Reality is hidden behind the 'Root'.
-[LOG] Hint: Don't just look at the light, look into the shadows.
+echo -e "[LOG] FAHHH-NET: Service Worker Active.\n[LOG] Security: Flag is no longer stored in files.\n[LOG] Hint: The flag is transmitted in the 'X-Fahh-Secret-Flag' header during server pings.\n[LOG] Stop looking at the code; look at the traffic." > fahh_logs.txt
