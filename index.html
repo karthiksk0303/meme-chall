@@ -4,29 +4,50 @@
     <title>FAHHH NETWORK CHALLENGE</title>
     <style>
         body { background-color: #ff0055; color: white; font-family: 'Comic Sans MS', cursive; text-align: center; padding: 50px; }
-        .box { background: pink; border: 10px solid red; padding: 30px; border-radius: 30px; display: inline-block; }
-        button { background: red; color: white; padding: 15px; border: none; cursor: pointer; border-radius: 10px; font-weight: bold; }
+        .box { background: pink; border: 10px solid red; padding: 30px; border-radius: 30px; display: inline-block; box-shadow: 10px 10px 0px #880022; }
+        button { background: red; color: white; padding: 15px; border: none; cursor: pointer; border-radius: 10px; font-weight: bold; font-size: 16px; transition: 0.2s; }
+        button:hover { background: #b00000; transform: scale(1.05); }
+        #msg { margin-top: 20px; font-style: italic; color: #880022; }
+        .anime-img { width: 200px; border-radius: 15px; border: 4px solid white; margin-bottom: 20px; }
     </style>
 </head>
 <body>
     <div class="box">
         <h1>(╯°□°）╯ FAHHH!!</h1>
-        <img src="fahh_happy.png" width="200"><br><br>
+        <img src="./fahh_happy.png" class="anime-img" alt="Fahh Happy"><br>
+        
         <button onclick="checkServer()">PING SECURITY SERVER</button>
         <p id="msg">System Ready.</p>
     </div>
 
     <script>
-        // Register the Service Worker
+        // --- 1. SERVICE WORKER REGISTRATION ---
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js');
+            // Using './sw.js' is the best way to handle GitHub Pages subfolders
+            navigator.serviceWorker.register('./sw.js')
+            .then(reg => console.log("FAHHH-SYSTEM: Service Worker Registered!", reg))
+            .catch(err => console.log("FAHHH-ERROR: Registration Failed!", err));
         }
 
+        // --- 2. THE CHALLENGE TRIGGER ---
         async function checkServer() {
-            document.getElementById('msg').innerText = "Fetching status...";
-            // This triggers the fetch event in sw.js
-            await fetch('flag_status.txt');
-            document.getElementById('msg').innerText = "Status received. Check the network traffic, Senpai!";
+            const msgBox = document.getElementById('msg');
+            msgBox.innerText = "Fetching status from Secure Vault...";
+            
+            try {
+                // This call is intercepted by sw.js
+                const response = await fetch('flag_status.txt');
+                
+                if (response.ok) {
+                    msgBox.innerText = "Status received. Check the Network Traffic headers, Senpai!";
+                    console.log("System: Packet received. Inspect the 'flag_status.txt' response headers.");
+                } else {
+                    msgBox.innerText = "Error: Server connection unstable.";
+                }
+            } catch (error) {
+                msgBox.innerText = "Critical Error: Service Worker not responding.";
+                console.error(error);
+            }
         }
     </script>
 </body>
